@@ -1,4 +1,5 @@
 {
+  "name": "apache-camel-website",
   "version": "1.0.0-SNAPSHOT",
   "license": "Apache-2.0",
   "scripts": {
@@ -6,37 +7,38 @@
     "build:hugo": "hugo --cacheDir ${HUGO_CACHE_DIR:-$(pwd)/.hugo_data}",
     "build:minify": "gulp minify",
     "build:sitemap": "gulp sitemap",
-    "build": "run-s build:*",
-    "preview": "run-s preview:*",
+    "build": "run-s build:antora build:hugo build:sitemap build:minify",
+    "preview": "run-s preview:antora preview:hugo",
     "preview:antora": "antora --clean --fetch antora-playbook.yml",
     "preview:hugo": "hugo server -D",
     "check:xref": "antora --generator @antora/xref-validator antora-playbook.yml",
     "check:links": "link-checker --disable-external --mkdocs --allow-hash-href public --url-ignore='#top'",
     "check:html": "html-validate 'public/*/**/*.html' 'public/!(google)*.html'",
-    "checks": "run-s check:*"
+    "checks": "run-s check:xref check:links check:html"
   },
   "devDependencies": {
-    "@antora/asciidoc-loader": "2.3.0",
-    "@antora/cli": "2.3.0",
-    "@antora/content-aggregator": "2.3.0",
-    "@antora/content-classifier": "2.3.0",
-    "@antora/document-converter": "2.3.0",
-    "@antora/playbook-builder": "2.3.0",
-    "@antora/site-generator-default": "2.3.0",
-    "@antora/xref-validator": "gitlab:antora/xref-validator",
+    "@antora/asciidoc-loader": "~2.3",
+    "@antora/cli": "~2.3",
+    "@antora/content-aggregator": "~2.3",
+    "@antora/content-classifier": "~2.3",
+    "@antora/document-converter": "~2.3",
+    "@antora/playbook-builder": "~2.3",
+    "@antora/site-generator-default": "~2.3",
+    "@antora/xref-validator": "https://gitlab.com/antora/xref-validator.git#commit=28b7146cf00fadd4adc699d389faeb222719aa2d",
     "@djencks/asciidoctor-antora-indexer": "^0.0.5",
+    "antora-ui-camel": "workspace:antora-ui-camel",
     "escape-string-regexp": "~2.0",
     "gulp": "~4.0",
-    "gulp-cheerio": "^1.0.0",
+    "gulp-cheerio": "~1.0",
     "gulp-htmlmin": "~5.0",
-    "html-validate": "~1.2",
-    "hugo-cli": "~0.11",
-    "link-checker": "~1.2",
-    "npm-run-all": "~4.1",
+    "html-validate": "~3.0",
+    "hugo-extended": "^0.73.0",
+    "link-checker": "~1.4",
+    "npm-run-all": "~4",
     "opal-runtime": "1.0.11",
     "toml": "~3.0"
   },
-  "installConfig": {
-    "pnp": true
-  }
+  "workspaces": [
+    "antora-ui-camel"
+  ]
 }
