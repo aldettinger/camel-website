@@ -1,5 +1,5 @@
 [build]
-  command = "(cd antora-ui-camel && yarn build) && yarn build"
+  command = "yarn build-all"
   environment = { CAMEL_ENV = "netlify" }
 
 [build.processing]
